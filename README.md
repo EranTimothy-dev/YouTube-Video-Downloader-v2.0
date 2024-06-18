@@ -119,9 +119,9 @@ To use the program simply open the SearchVideo.py file and run it, afterwards fo
 - [x] Create the download section UI
 - [x] Program the download functionality
 - [x] Improve UI features and user experience
-- [x] Program the merge functionality for audio and video files
-- [ ] Mid download cancel option
-- [ ] Cleanup program to automate removing the separate audio and video files
+- [x] Program the functionality to merge audio and video files
+- [x] Cleanup program to automate removing the separate audio and video files
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
