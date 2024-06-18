@@ -15,7 +15,9 @@ class SearchVideo():
        self.window.iconbitmap("images/icon.ico")
        self.window.resizable(0,0)
        
-       self.note = "NOTE: If the download doesn't start please check if it's already downloaded in the Downloads folder"
+       self.note = """NOTE: 1. If the download doesn't start please check if it's already downloaded in the Downloads folder
+            2. The audio and video files are downloaded separately, therefore kindly wait till your notified 
+                that the download is completely finished"""
 
        style = ttk.Style()
        #style.theme_use("winnative")

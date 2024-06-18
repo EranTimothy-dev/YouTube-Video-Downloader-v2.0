@@ -3,7 +3,7 @@ from tkinter import ttk
 import pytube as yt
 from tkinter import messagebox
 import packages.video_manager as vm
-from packages.codecMerger import merge_codecs
+from packages.codecMerger import merge_codecs, path_to_downloads
 
 
 
@@ -14,7 +14,7 @@ class DownloadVideo():
         self.download_section = tk.Toplevel()
         self.download_section.title("Download Video")
         # self.download_section.iconbitmap("images/icon.ico")
-        self.download_section.geometry("690x500")
+        self.download_section.geometry("690x550")
         self.download_section.resizable(0,0)
         self.url = link
         
@@ -98,8 +98,8 @@ class DownloadVideo():
         video_thumbnail.grid(row=1, column=1,rowspan=5,sticky=tk.W)
         # video_thumbnail.pack(side=tk.TOP,padx=5, pady=5)
         
-        video_title = ttk.Label(self.video_details, text=f"Video Title: {self.video_title}", style="Label.TLabel")
-        video_title.grid(row=2, column=2)
+        video_title = ttk.Label(self.video_details, text=f"Video Title: {self.video_title}", wraplength=350 ,style="Label.TLabel")
+        video_title.grid(row=1, column=2, rowspan=2)
         # video_title.pack()
         
         video_duration = ttk.Label(self.video_details, text=f"Video Duration: {self.time_duration}", style="Label.TLabel")
@@ -121,8 +121,12 @@ class DownloadVideo():
     
     
     def download_audio(self):
+        path_to_download = path_to_downloads()
+        final_path = path_to_download + "\\videos\\"
         audio_file = self.video.streams.filter(adaptive=True, only_audio=True).order_by('abr').desc().first()
-        audio_file.download(filename='audio.webm', output_path='videos/')
+        audio_file.download(filename='audio.webm', output_path=final_path)
+        print("Audio Downloaded Successfully:", final_path)
+        return final_path + "\\audio.webm"
         # return audio_file
     
     def get_resolution(self):
@@ -155,9 +159,6 @@ class DownloadVideo():
             ttk.Radiobutton(self.video_details, text=key, variable=self.selected_quality, value=val, command=get_selection).grid(row=num, column=1, pady=10)
             num += 1
             
-        
-        
-        
         print(f"Initial quality: {self.selected_quality.get()}")
         # return selected_quality
     
@@ -173,8 +174,11 @@ class DownloadVideo():
             messagebox.showerror("Error", f"No stream found with resolution {resolution}")
             return
         try:
-            video_file.download(filename='video.mp4', output_path='videos/')
-            print("Downloaded Successfully")
+            path_to_download = path_to_downloads()
+            final_path = path_to_download + "\\videos\\"
+            video_file.download(filename='video.mp4', output_path=final_path)
+            print("Video Downloaded Successfully:", final_path)
+            return final_path + "\\video.mp4"
         except Exception as e:
             print(f"Error downloading video: {e}")
             messagebox.showerror("Error", f"Error downloading video: {e}")
@@ -193,11 +197,16 @@ class DownloadVideo():
         
     def download_button(self): 
         def downloader():
-            self.download_audio()
-            self.download_video()
+            self.downloading_info = ttk.Label(self.video_details, text="Getting files ready...", style="Label.TLabel")
+            self.downloading_info.grid(row=9, column=2, pady=10)
+            audio_path = self.download_audio()
+            self.downloading_info = ttk.Label(self.video_details, text="Downloading your video, please wait...", style="Label.TLabel")
+            self.downloading_info.grid(row=9, column=2, pady=10)
+            video_path = self.download_video()
             output = str(f"{self.video.title}.mp4")
             output_file = output.replace(" ","_")
-            merge_codecs('videos/video.mp4','videos/audio.webm',output_file)
+            # merge_codecs('videos/video.mp4','videos/audio.webm',output_file)
+            merge_codecs(video_path,audio_path,output_file)
             messagebox.showinfo("Success", "Download Completed Successfully")
             self.download_section.destroy()   
         btn2 = ttk.Button(self.download_option, text="Download", command=downloader)

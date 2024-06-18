@@ -17,6 +17,15 @@ def merge_codecs(video_file,audio_file,output_file):
     output = path + "\\" + output_file
     codec = "copy"
     subprocess.run(f"ffmpeg -i {video_file} -i {audio_file} -c {codec} {output}")
+    print("Video and Audio files merged successfully.")
+
+    if os.path.exists(video_file) and os.path.exists(audio_file):
+        os.remove(video_file)
+        os.remove(audio_file)
+        os.rmdir(path+"\\videos")
+        print("Unnecessary files deleted successfully.")
+    else:
+        print("file not found")
     
     
     
