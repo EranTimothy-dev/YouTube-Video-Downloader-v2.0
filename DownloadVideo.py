@@ -13,7 +13,7 @@ class DownloadVideo():
     def __init__(self, link) -> None:
         self.download_section = tk.Toplevel()
         self.download_section.title("Download Video")
-        # self.download_section.iconbitmap("images/icon.ico")
+        self.download_section.iconbitmap("images/icon.ico")
         self.download_section.geometry("690x550")
         self.download_section.resizable(0,0)
         self.url = link
