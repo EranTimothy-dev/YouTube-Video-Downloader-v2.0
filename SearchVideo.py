@@ -1,13 +1,18 @@
 import tkinter as tk
 from tkinter import ttk
 import pytube as yt
-from pytube import YouTube
+# from pytube import YouTube
 from DownloadVideo import DownloadVideo
 
 
 
 
 class SearchVideo():
+    '''
+    Takes 0 positional arguments.
+    Instantiates an user friendly interface for user to input the youtube link of the video wished to be downloaded and 
+    instantiates an object of the class DownloadVideo to then process the video from the link provided.
+    '''
     def __init__(self):
        self.window = tk.Tk()
        self.window.title("YouTube Video Downloader")
@@ -20,15 +25,12 @@ class SearchVideo():
                 that the download is completely finished"""
 
        style = ttk.Style()
-       #style.theme_use("winnative")
        style.configure("test.TLabel", foreground= "#e60000")
        self.display_frame = self.create_display_frame()
        self.searchbar_frame, self.searchbar = self.create_searchbar()
        self.warning_note = self.create_warning_note()
-       #self.load_video()
 
-        
-       
+           
     def create_display_frame(self):
         url_frame = ttk.Frame(self.window, width=500, height=500)
         url_frame.pack(fill="both", expand=True)
@@ -39,7 +41,6 @@ class SearchVideo():
         note_label.grid(row=2, column=1)
         return note_label
       
-    
     
     def create_searchbar(self):
         entry_label = ttk.LabelFrame(self.display_frame, text="Enter Url", padding=10)
@@ -59,12 +60,12 @@ class SearchVideo():
         search_button.pack(pady=10, padx=10)
         
         return entry_label, url_search
-
-    
-        
+   
             
     def run(self):
         self.window.mainloop()
+
+
     
 
 if __name__ == "__main__":

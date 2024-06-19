@@ -18,10 +18,6 @@ def get_resolutions(Stream):
     return resolution
 
 
-def convert_to_MB(filesize):
-    filesize_in_MB = (filesize/1024)/1024
-    return round(filesize_in_MB,2)
-
 
 
 def get_thumbnail(Thumbnail):
@@ -70,6 +66,10 @@ def download_video(resolution,stream, path):
 
 
 def convert_seconds(seconds):
+    '''
+    Takes one positional argument 'seconds'
+    The argument passed will be converted to the format 00:00:00 and returned as a string.
+    '''
     seconds = seconds % (24 * 3600)
     hour = seconds // 3600
     seconds %= 3600
