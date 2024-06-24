@@ -60,12 +60,17 @@ class DownloadVideo():
          
     def create_YouTube_object(self):
         def on_progress(stream, chunk, bytes_remaining):
-            """Callback function"""
-            global percentage
+            """Callback function
+            Takes 3 positional arguments:
+                The youtube video stream
+                The chunk of the stream
+                Bytes remaining when as download progresses
+            """
+            # global percentage
             total_size = stream.filesize
             bytes_downloaded = total_size - bytes_remaining
             pct_completed = bytes_downloaded / total_size * 100
-            percentage = round(pct_completed, 2)
+            percentage = round(pct_completed)
             print(f"Status: {round(pct_completed, 2)} %")
             
             # Update the progress bar as the video downloads
@@ -211,7 +216,8 @@ class DownloadVideo():
             self.downloading_info.grid(row=9, column=2, pady=10)
             video_path = self.download_video()
             output = str(f"{self.video.title}.mp4")
-            output_file = output.replace(" ","_")
+            output_file1 = output.replace(" ","_")
+            output_file = output_file1.replace("/","_")
             merge_codecs(video_path,audio_path,output_file)
             download_text.set("Download Completed.")
             self.downloading_info = ttk.Label(self.video_details, textvariable=download_text, style="Label.TLabel")

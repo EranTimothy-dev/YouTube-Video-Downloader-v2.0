@@ -20,7 +20,7 @@ def merge_codecs(video_file,audio_file,output_file):
     should be in the current working repository/directory to run this function without errors 
     '''
     path = path_to_downloads()
-    output = path + "\\" + output_file
+    output = path + "\\" + fr"{output_file}"
     codec = "copy"
     subprocess.run(f"ffmpeg -y -i {video_file} -i {audio_file} -c {codec} {output}")
     print("Video and Audio files merged successfully.")
