@@ -4,6 +4,7 @@ import pytube as yt
 from tkinter import messagebox
 import packages.video_manager as vm
 from packages.codecMerger import merge_codecs
+import re
 
 
 
@@ -244,8 +245,10 @@ class DownloadVideo():
             self.downloading_info.grid(row=9, column=2, pady=10)
             video_path = self.download_video()
             output = str(f"{self.video.title}.mp4")
-            output_file1 = output.replace(" ","_")
-            output_file = output_file1.replace("/","_")
+            output_file_without_spaces = output.replace(" ","_")
+            # output_file1 = output_file_without_spaces.replace("?", "")
+            # output_file = output_file1.replace("/","_")
+            output_file = re.sub(r'[<>:"/\\|?*]',"_", output_file_without_spaces)
             merge_codecs(video_path,audio_path,output_file)
             download_text.set("Download Completed.")
             self.downloading_info = ttk.Label(self.video_details, textvariable=download_text, style="Label.TLabel")
