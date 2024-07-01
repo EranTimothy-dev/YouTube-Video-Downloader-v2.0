@@ -170,12 +170,17 @@ class DownloadVideo():
 
     
     def get_resolution(self):
-        video_files = self.video.streams.filter(adaptive=True, only_video=True, file_extension='mp4').order_by('resolution').desc()
-        resolutions = []
-        for i in video_files:
-            video_resolution = vm.get_resolutions(i)
-            resolutions.append(video_resolution)
-        return resolutions
+        try:
+            video_files = self.video.streams.filter(adaptive=True, only_video=True, file_extension='mp4').order_by('resolution').desc()
+            resolutions = []
+            for i in video_files:
+                video_resolution = vm.get_resolutions(i)
+                resolutions.append(video_resolution)
+            return resolutions
+        except Exception as e:
+            print(f"AgeRestrictedError: {e}")
+            messagebox.showerror(f"AgeRestrictedError", "Cannot download age restricted video")
+            self.download_section.destroy() 
     
     def display_resolutions(self):
         def get_selection():
@@ -221,6 +226,7 @@ class DownloadVideo():
         except Exception as e:
             print(f"Error downloading video: {e}")
             messagebox.showerror("Error", f"Error downloading video: {e}")
+            self.download_section.destroy() 
             
     
     
