@@ -1,18 +1,34 @@
 import tkinter as tk
 from tkinter import ttk
 import pytube as yt
-# from pytube import YouTube
 from DownloadVideo import DownloadVideo
 
 
 
 
 class SearchVideo():
-    '''
-    Takes 0 positional arguments.
-    Instantiates an user friendly interface for user to input the youtube link of the video wished to be downloaded and 
-    instantiates an object of the class DownloadVideo to then process the video from the link provided.
-    '''
+    """
+    A class to create a Tkinter-based GUI application for searching and downloading YouTube videos.
+
+    Attributes:
+        window (tk.Tk): The main window of the application.
+        note (str): A note to display instructions and warnings to the user.
+        display_frame (ttk.Frame): The frame for displaying the search bar and notes.
+        searchbar_frame (ttk.LabelFrame): The frame containing the search bar.
+        searchbar (ttk.Entry): The entry widget for entering the YouTube URL.
+        warning_note (ttk.Label): The label displaying the warning note.
+
+    Methods:
+        __init__(): Initializes the main window and GUI components.
+        create_display_frame(): Creates the main frame for displaying content.
+        create_warning_note(): Creates and displays a warning note with instructions.
+        create_searchbar(): Creates and displays the search bar for entering YouTube URLs.
+        run(): Runs the Tkinter main loop to display the GUI.
+        
+    Usage Example:
+        app = SearchVideo()
+        app.run()
+    """
     def __init__(self):
        self.window = tk.Tk()
        self.window.title("YouTube Video Downloader")

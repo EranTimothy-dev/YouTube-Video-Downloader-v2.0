@@ -89,7 +89,7 @@ Firstly you will have to clone repo and then install the required dependencies m
   pip install -r requirements.txt
   ```
 
-Next you will have to locally install ffmpeg in your local system in order to to merger the audio and video file. 
+Next you will have to locally install ffmpeg in your local system in order to merge the audio and video file. 
 
 * To install ffmpeg you can follow the below tutorial link:
 https://www.wikihow.com/Install-FFmpeg-on-Windows

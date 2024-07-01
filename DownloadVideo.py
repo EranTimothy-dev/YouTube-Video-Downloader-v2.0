@@ -3,27 +3,55 @@ from tkinter import ttk
 import pytube as yt
 from tkinter import messagebox
 import packages.video_manager as vm
-from packages.codecMerger import merge_codecs, path_to_downloads
+from packages.codecMerger import merge_codecs
 
 
 
 
 
 class DownloadVideo():
-    '''
-    Takes 1 positional argument 'link', which is a youtube video link, and uses the link to create an interface to download the youtube video. 
-    The interface is made to provide user with required information and statistics of the video required to download.
-    The download section has the following key areas:
-        A section showing the details of the video such as
-                thumbnail image
-                title
-                time duration of video
-                published date
-                views
-        The next section allows user to select the prefered resolution of the video to be downloaded from available  resolutions and choose to download
-        the video and the progress of the download will be shown next to the resolution options.
-        The user will receive a pop up message once download is complete and the download window will be destroyed.  
-    '''
+    """
+    A class to create a Tkinter-based GUI application for downloading YouTube videos.
+
+    Attributes:
+        download_section (tk.Toplevel): The main window for the download section.
+        url (str): The URL of the YouTube video to be downloaded.
+        video (yt.YouTube): The YouTube object created from the provided URL.
+        video_details (ttk.Label): The frame for displaying video details.
+        download_option (ttk.Label): The frame for download options.
+        download_res (str): The selected video resolution for download.
+        video_thumbnail (str): The URL of the video thumbnail.
+        video_title (str): The title of the video.
+        time_duration (str): The duration of the video.
+        published_date (datetime.date): The publish date of the video.
+        views (str): The number of views of the video formatted with commas.
+        thumbnail (ttk.Label): The label displaying the video thumbnail.
+        title (ttk.Label): The label displaying the video title.
+        date_published (ttk.Label): The label displaying the publish date.
+        duration (ttk.Label): The label displaying the video duration.
+        video_views (ttk.Label): The label displaying the number of views.
+        download_progress (ttk.Progressbar): The progress bar for download progress.
+        selected_quality (tk.StringVar): The selected video quality for download.
+        radiobutton_values (dict): Dictionary storing video resolutions for radio buttons.
+        selected_stream_size (ttk.Label): The label displaying the selected stream size.
+
+    Methods:
+        __init__(link): Initializes the download section with the provided video link.
+        create_YouTube_object(): Creates a YouTube object from the provided URL.
+        get_video_details(): Retrieves video details like thumbnail, title, duration, publish date, and views.
+        create_display_frame(): Creates frames for video details and download options.
+        create_video_information_section(): Creates and displays video information section in the GUI.
+        download_audio(): Downloads the audio stream of the video.
+        get_resolution(): Retrieves available video resolutions.
+        display_resolutions(): Displays available video resolutions as radio buttons.
+        download_video(): Downloads the video stream based on the selected resolution.
+        exit_button(): Creates an exit button to close the download section.
+        download_button(): Creates a download button to initiate the download process.
+
+    Usage Example:
+        video_downloader = DownloadVideo("https://www.youtube.com/watch?v=example")
+        tk.mainloop()
+    """
     def __init__(self, link) -> None:
         self.download_section = tk.Toplevel()
         self.download_section.title("Download Video")
@@ -131,7 +159,7 @@ class DownloadVideo():
     
     
     def download_audio(self):
-        path_to_download = path_to_downloads()
+        # path_to_download = path_to_downloads()
         # final_path = path_to_download + "\\videos\\"
         final_path = "videos\\"
         audio_file = self.video.streams.filter(adaptive=True, only_audio=True).order_by('abr').desc().first()
@@ -183,7 +211,7 @@ class DownloadVideo():
             messagebox.showerror("Error", f"No stream found with resolution {resolution}")
             return
         try:
-            path_to_download = path_to_downloads()
+            # path_to_download = path_to_downloads()
             # final_path = path_to_download + "\\videos\\"
             final_path = "videos\\"
             video_file.download(filename='video.mp4', output_path=final_path)
