@@ -107,7 +107,7 @@ class DownloadVideo():
             self.download_progress['value'] = int(percentage)
             self.download_progress.update_idletasks()
             
-        video = yt.YouTube(self.url, on_progress_callback=on_progress, use_oauth=True, allow_oauth_cache=True,)
+        video = yt.YouTube(self.url, on_progress_callback=on_progress)#, use_oauth=True, allow_oauth_cache=True,)
         return video
         
         
