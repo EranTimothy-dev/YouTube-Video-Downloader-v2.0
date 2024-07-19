@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-import pytube as yt
+# import pytube as yt
+import pytubefix as yt
 from tkinter import messagebox
 import packages.video_manager as vm
 from packages.codecMerger import merge_codecs
@@ -56,7 +57,7 @@ class DownloadVideo():
     def __init__(self, link) -> None:
         self.download_section = tk.Toplevel()
         self.download_section.title("Download Video")
-        self.download_section.iconbitmap("images/icon.ico")
+        # self.download_section.iconbitmap("images/icon.ico")
         self.download_section.geometry("700x550")
         self.download_section.resizable(0,0)
         self.url = link
@@ -65,7 +66,7 @@ class DownloadVideo():
             self.video = self.create_YouTube_object()
         except Exception as e:
             print(f"Error creating YouTube object: {e}")
-            messagebox.showerror("Error", "Failed to create YouTube object. Please check the URL and your internet connection.")
+            messagebox.showerror("Error", "Failed to fetch details. Please check the URL and your internet connection.")
             self.download_section.destroy()
             return
         
@@ -106,7 +107,7 @@ class DownloadVideo():
             self.download_progress['value'] = int(percentage)
             self.download_progress.update_idletasks()
             
-        video = yt.YouTube(self.url, on_progress_callback=on_progress)
+        video = yt.YouTube(self.url, on_progress_callback=on_progress, use_oauth=True, allow_oauth_cache=True,)
         return video
         
         
@@ -170,17 +171,17 @@ class DownloadVideo():
 
     
     def get_resolution(self):
-        try:
+        # try:
             video_files = self.video.streams.filter(adaptive=True, only_video=True, file_extension='mp4').order_by('resolution').desc()
             resolutions = []
             for i in video_files:
                 video_resolution = vm.get_resolutions(i)
                 resolutions.append(video_resolution)
             return resolutions
-        except Exception as e:
-            print(f"AgeRestrictedError: {e}")
-            messagebox.showerror(f"AgeRestrictedError", "Cannot download age restricted video")
-            self.download_section.destroy() 
+        # except Exception as e:
+        #     print(f"AgeRestrictedError: {e}")
+        #     messagebox.showerror(f"AgeRestrictedError", "Cannot download age restricted video")
+        #     self.download_section.destroy() 
     
     def display_resolutions(self):
         def get_selection():

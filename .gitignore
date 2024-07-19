@@ -2,3 +2,6 @@ packages/ffmpeg.exe
 *.exe
 .venv
 Executable/
+test/
+test.py
+DownloadAgeRestrictedVideos.py

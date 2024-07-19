@@ -33,7 +33,7 @@ class SearchVideo():
        self.window = tk.Tk()
        self.window.title("YouTube Video Downloader")
        self.window.geometry("690x200")
-       self.window.iconbitmap("images/icon.ico")
+    #    self.window.iconbitmap("images/icon.ico")
        self.window.resizable(0,0)
        
        self.note = """NOTE: 1. If the download doesn't start please check if it's already downloaded in the Downloads folder
