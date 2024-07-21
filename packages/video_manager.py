@@ -17,7 +17,18 @@ def get_resolutions(Stream):
     resolution = args[start_index:end_index]
     return resolution
 
-
+def get_bitrate(Stream):
+    '''
+    Arguments:
+        Stream: the stream information of the video url
+    
+    Returns the resolution of the video based on stream information
+    '''
+    args = str(Stream)
+    start_index = args.find("=",41) + 2
+    end_index = args.find('p',41) + 2
+    resolution = args[start_index:end_index]
+    return resolution
 
 
 def get_thumbnail(Thumbnail):

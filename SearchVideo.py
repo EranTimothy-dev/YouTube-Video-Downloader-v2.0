@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import pytube as yt
 from DownloadVideo import DownloadVideo
+from DownloadAudio import DownloadAudio
 
 
 
@@ -33,12 +34,11 @@ class SearchVideo():
        self.window = tk.Tk()
        self.window.title("YouTube Video Downloader")
        self.window.geometry("690x200")
-    #    self.window.iconbitmap("images/icon.ico")
+       self.window.iconbitmap("images/icon.ico")
        self.window.resizable(0,0)
        
-       self.note = """NOTE: 1. If the download doesn't start please check if it's already downloaded in the Downloads folder
-            2. The audio and video files are downloaded separately, therefore kindly wait till your notified 
-                that the download is completely finished"""
+       self.note = """NOTE: The audio and video files are downloaded separately, therefore kindly wait till your notified 
+            that the download has completely finished"""
 
        style = ttk.Style()
        style.configure("test.TLabel", foreground= "#e60000")
@@ -63,17 +63,24 @@ class SearchVideo():
         entry_label.grid(row=1, column=1, columnspan=2, padx=20, pady=10)
         
         url_search = ttk.Entry(entry_label, width= 100)
-        url_search.pack()
+        url_search.grid(row=1,column=1, columnspan=6, padx=10, pady=10)
 
         # should get url and the time of calling the load_video function else causes regex error.
         def load_video():
             url = url_search.get()
             print(url)
-            download_window = DownloadVideo(url)
-            print(url)
+            DownloadVideo(url)
         
-        search_button = ttk.Button(entry_label, text="Search", command=lambda: load_video()) 
-        search_button.pack(pady=10, padx=10)
+        def load_audio():
+            url = url_search.get()
+            print(url)
+            DownloadAudio(url)
+        
+        get_video_button = ttk.Button(entry_label, text="Download Video", command=lambda: load_video()) 
+        get_video_button.grid(row=2, column=3, pady=10)
+        
+        get_audio_button = ttk.Button(entry_label, text="Download Audio", command=lambda: load_audio()) 
+        get_audio_button.grid(row=2, column=4, pady=10)
         
         return entry_label, url_search
    

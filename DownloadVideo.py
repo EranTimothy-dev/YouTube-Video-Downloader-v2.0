@@ -194,12 +194,12 @@ class DownloadVideo():
             self.selected_stream_size = ttk.Label(self.video_details, text=size_text, style="Label.TLabel")
             self.selected_stream_size.grid(row=7, column=2)
             
-        self.selected_quality = tk.StringVar(self.download_section,"1")
+        self.selected_quality = tk.StringVar(self.download_section,"Not selected")
         self.radiobutton_values = dict()
-        num = 1
+        # num = 1
         for i in self.video_resolutions:
             self.radiobutton_values[i] = f"{i}"
-            num += 1
+            # num += 1
         num = 6 
         for (key, val) in self.radiobutton_values.items():
             ttk.Radiobutton(self.video_details, text=key, variable=self.selected_quality, value=val, command=get_selection).grid(row=num, column=1, pady=10)
