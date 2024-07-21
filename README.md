@@ -7,7 +7,7 @@
   <img src="images/icon.ico" alt="Logo" width="80" height="80">
   
 
-  <h3 align="center">YouTube Video Downloader</h3>
+  <h3 align="center">YouTube Video & Audio Downloader</h3>
   <br><br>
 </div>
 
@@ -43,7 +43,7 @@
 ## About The Project
 
 
-This project is an improved version of my previous youtube video downloading project. The main functionality is similar to the old version where it basically allows users to download youtube videos by entering the url, but this version does not download progressive streams like the previous version instead supports only DASH streams.
+This project is an improved version of my previous youtube video downloading project. The main functionality is similar to the old version where it basically allows users to download youtube videos by entering the url, but this version does not download progressive streams like the previous version instead supports only DASH streams and also supports audio only downloads.
 The video and audio files are downloaded separately and merged to create the final video and saved to the Downloads folder.
 
 Major changes in this version:
@@ -52,6 +52,7 @@ Major changes in this version:
 * The user can now select from all available resolution qualities available for te video.
 * Some improvements have been made to improve the look and feel of the UI.
 * Transition from progressive streams to DASH streams.
+* Can download audio files in mp3 format
 
 
 
