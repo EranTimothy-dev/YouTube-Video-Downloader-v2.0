@@ -6,6 +6,7 @@ from tkinter import messagebox
 import packages.video_manager as vm
 from packages.codecMerger import merge_codecs
 import re
+from pytubefix.exceptions import RegexMatchError, AgeRestrictedError
 
 
 
@@ -171,17 +172,20 @@ class DownloadVideo():
 
     
     def get_resolution(self):
-        # try:
+        try:
             video_files = self.video.streams.filter(adaptive=True, only_video=True, file_extension='mp4').order_by('resolution').desc()
             resolutions = []
             for i in video_files:
                 video_resolution = vm.get_resolutions(i)
                 resolutions.append(video_resolution)
             return resolutions
-        # except Exception as e:
-        #     print(f"AgeRestrictedError: {e}")
-        #     messagebox.showerror(f"AgeRestrictedError", "Cannot download age restricted video")
-        #     self.download_section.destroy() 
+        except AgeRestrictedError as e:
+            print(f"AgeRestrictedError: {e}")
+            messagebox.showerror(f"AgeRestrictedError", "Cannot download age restricted video")
+            self.download_section.destroy()
+        except RegexMatchError as e:
+            print(f"{e}")
+            messagebox.showerror("Regex Error!", "Something went wrong") 
     
     def display_resolutions(self):
         def get_selection():
